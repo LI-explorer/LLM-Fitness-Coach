@@ -3,7 +3,7 @@ from google import genai
 import json
 
 st.set_page_config(page_title="AI Fit Coach", page_icon="💪")
-api_key = st.sidebar.text_input("Enter Google API Key", type="password")
+api_key = st.secrets["GOOGLE_API_KEY"]
 
 if api_key:
     client = genai.Client(api_key=api_key)
