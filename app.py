@@ -3,7 +3,11 @@ from google import genai
 import json
 
 st.set_page_config(page_title="AI Fit Coach", page_icon="💪")
-api_key = st.secrets["GOOGLE_API_KEY"]
+api_key = st.secrets.get("GOOGLE_API_KEY")
+
+if not api_key:
+    st.error("Missing API Key! Please set GOOGLE_API_KEY in Streamlit Secrets.")
+    st.stop() # This stops the app from running further and crashing
 
 if api_key:
     client = genai.Client(api_key=api_key)
