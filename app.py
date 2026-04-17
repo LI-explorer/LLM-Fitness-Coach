@@ -65,7 +65,7 @@ if api_key:
         
         with st.spinner("Analyzing your profile..."):
             response = client.models.generate_content(
-                model="gemini-2.5-flash", contents=prompt
+                model="gemini-3-flash-preview", contents=prompt
             )
             st.success("Analysis Complete!")
             st.markdown(response.text)
@@ -84,7 +84,7 @@ if api_key:
         """
         with st.spinner("Checking nutrition..."):
             eval_response = client.models.generate_content(
-                model="gemini-2.5-flash", contents=eval_prompt
+                model="gemini-3-flash-preview", contents=eval_prompt
             )
             st.info(eval_response.text)
 
