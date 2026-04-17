@@ -5,6 +5,26 @@ import json
 st.set_page_config(page_title="AI Fit Coach", page_icon="💪")
 api_key = st.secrets.get("GOOGLE_API_KEY")
 
+# --- DEBUG SECTION ---
+# This helps us see if the secret is actually loading
+if "GOOGLE_API_KEY" in st.secrets:
+    raw_key = st.secrets["GOOGLE_API_KEY"]
+    st.sidebar.success(f"✅ Secret found in Streamlit!")
+    st.sidebar.write(f"Key length: {len(raw_key)}")
+    st.sidebar.write(f"Key starts with: {raw_key[:4]}")
+    
+    # Check for common invisible character errors
+    if raw_key.startswith(" ") or raw_key.endswith(" "):
+        st.sidebar.error("⚠️ Warning: Your key has leading or trailing spaces!")
+else:
+    st.sidebar.error("❌ GOOGLE_API_KEY not found in Secrets!")
+    st.stop()
+
+# Initialize the client using the secret
+api_key = st.secrets["GOOGLE_API_KEY"]
+client = genai.Client(api_key=api_key)
+# --- END DEBUG SECTION ---
+
 if not api_key:
     st.error("Missing API Key! Please set GOOGLE_API_KEY in Streamlit Secrets.")
     st.stop() # This stops the app from running further and crashing
